@@ -42,5 +42,6 @@ if __name__ == "__main__":
                 sns_client.publish(TopicArn='arn:aws:sns:ap-southeast-2:554402701917:groupproject-facialrecognition-doorlock', 
                                    Message='Your OTP is %s. Key in your OTP to open the Door.' % number, 
                                    Subject='Face Detection OTP')
+                otp = input('OTP:')
         time.sleep(1)
 
