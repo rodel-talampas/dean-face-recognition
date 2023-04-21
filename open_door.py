@@ -2,6 +2,13 @@ from picamera import PiCamera
 import time
 import boto3
 import random
+import RPi.GPIO as GPIO
+from time import sleep
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(18, GPIO.OUT)
+GPIO.output(18, 0) ### Close the LOCK
 
 directory = '/home/ishika/groupproject-images' #folder name on your raspberry pi
 
@@ -44,7 +51,9 @@ if __name__ == "__main__":
                                    Subject='Face Detection OTP')
                 otp = input('OTP:')
                 if (otp == number): # OTP Matches
-                     print('OTP Matches')
-                     
+                     GPIO.output(18, 1)
+                     print('OTP Matches. Door now open!')
+                     sleep(5)
+                     GPIO.output(18, 0)
         time.sleep(1)
 
