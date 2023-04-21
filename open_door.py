@@ -50,10 +50,12 @@ if __name__ == "__main__":
                                    Message='Your OTP is %s. Key in your OTP to open the Door.' % number, 
                                    Subject='Face Detection OTP')
                 otp = input('OTP:')
-                if (otp == number): # OTP Matches
+                if (otp == str(number)): # OTP Matches
                      GPIO.output(18, 0)
                      print('OTP Matches. Door now open!')
                      sleep(5)
                      GPIO.output(18, 1)
+                else:
+                     print('Invalid Pin!')
         time.sleep(1)
 
