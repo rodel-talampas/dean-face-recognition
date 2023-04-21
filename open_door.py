@@ -43,5 +43,8 @@ if __name__ == "__main__":
                                    Message='Your OTP is %s. Key in your OTP to open the Door.' % number, 
                                    Subject='Face Detection OTP')
                 otp = input('OTP:')
+                if (otp == number): # OTP Matches
+                     print('OTP Matches')
+                     
         time.sleep(1)
 
