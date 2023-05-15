@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
         #camera warm-up time
         time.sleep(2)
-        found = false
+        found = False
         milli = int(round(time.time() * 1000))
         image = '{}/image_{}.jpg'.format(directory,milli)
         P.capture(image) #capture an image
@@ -36,7 +36,7 @@ if __name__ == "__main__":
                     print('Hello, ',match_response['FaceMatches'][0]['Face']['ExternalImageId'])
                     print('Similarity: ',match_response['FaceMatches'][0]['Similarity'])
                     print('Confidence: ',match_response['FaceMatches'][0]['Face']['Confidence'])
-                    found = true
+                    found = True
                 else:
                     print('No faces matched')
             except:
