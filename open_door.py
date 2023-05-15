@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
         #camera warm-up time
         time.sleep(2)
-        
+        found = false
         milli = int(round(time.time() * 1000))
         image = '{}/image_{}.jpg'.format(directory,milli)
         P.capture(image) #capture an image
@@ -36,7 +36,7 @@ if __name__ == "__main__":
                     print('Hello, ',match_response['FaceMatches'][0]['Face']['ExternalImageId'])
                     print('Similarity: ',match_response['FaceMatches'][0]['Similarity'])
                     print('Confidence: ',match_response['FaceMatches'][0]['Face']['Confidence'])
-    
+                    found = true
                 else:
                     print('No faces matched')
             except:
@@ -44,18 +44,19 @@ if __name__ == "__main__":
             finally:
                 P.stop_preview()
                 P.close() 
-                print('Valid face detected!')
-                number = random.randint(1000,9999)
-                sns_client.publish(TopicArn='arn:aws:sns:ap-southeast-2:554402701917:groupproject-facialrecognition-doorlock', 
+                if found:
+                    print('Valid face detected!')
+                    number = random.randint(1000,9999)
+                    sns_client.publish(TopicArn='arn:aws:sns:ap-southeast-2:554402701917:groupproject-facialrecognition-doorlock', 
                                    Message='Your OTP is %s. Key in your OTP to open the Door.' % number, 
                                    Subject='Face Detection OTP')
-                otp = input('OTP:')
-                if (otp == str(number)): # OTP Matches
-                     GPIO.output(18, 0)
-                     print('OTP Matches. Door now open!')
-                     sleep(5)
-                     GPIO.output(18, 1)
-                else:
-                     print('Invalid Pin!')
+                    otp = input('OTP:')
+                    if (otp == str(number)): # OTP Matches
+                        GPIO.output(18, 0)
+                        print('OTP Matches. Door now open!')
+                        sleep(5)
+                        GPIO.output(18, 1)
+                    else:
+                        print('Invalid Pin!')
         time.sleep(1)
 
